@@ -9,25 +9,20 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { Eye, EyeOff } from "lucide-react";
 
-// Define the steps of the flow
+
 type Step = 'EMAIL' | 'OTP' | 'PASSWORD' | 'SUCCESS';
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
   const [step, setStep] = useState<Step>('EMAIL');
   const [loading, setLoading] = useState(false);
-  
-  // Form Data
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", ""]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
-  // UI States
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // --- STEP 1: SEND EMAIL ---
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -42,23 +37,19 @@ export default function ForgotPasswordPage() {
     }
   };
 
-  // --- STEP 2: VERIFY OTP ---
   const otpInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  // Handle OTP Input typing
   const handleOtpChange = (index: number, value: string) => {
     if (isNaN(Number(value))) return;
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Auto focus next input
-    if (value && index < 4) {
+    if (value && index < 5) {
       otpInputRefs.current[index + 1]?.focus();
     }
   };
 
-  // Handle Backspace
   const handleOtpKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       otpInputRefs.current[index - 1]?.focus();
@@ -83,7 +74,6 @@ export default function ForgotPasswordPage() {
     }
   };
 
-  // --- STEP 3: RESET PASSWORD ---
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -100,8 +90,6 @@ export default function ForgotPasswordPage() {
       setLoading(false);
     }
   };
-
-  // --- RENDER STEPS ---
 
   if (step === 'EMAIL') {
     return (
@@ -148,7 +136,7 @@ export default function ForgotPasswordPage() {
                 value={digit}
                 onChange={(e) => handleOtpChange(index, e.target.value)}
                 onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                className={`w-14 h-14 text-center text-2xl font-bold rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-600 ${digit ? 'border-blue-600 bg-white' : 'border-gray-200 bg-gray-50'}`}
+                className={`  w-14 h-14 text-center text-2xl font-bold rounded-xl border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-600 ${digit ? 'border-blue-600 bg-white' : 'text-black border-gray-200 bg-gray-50'}`}
               />
             ))}
           </div>
