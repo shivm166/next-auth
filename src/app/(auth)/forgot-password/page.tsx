@@ -16,8 +16,7 @@ export default function ForgotPasswordPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Backend api endpoint we created in Step 2
-      await axios.post("/api/auth/forgot-password", { email });
+    await axios.post("/api/forgot-password", { email });
       setIsSent(true);
       toast.success("Reset link/code sent to your email");
     } catch (error) {

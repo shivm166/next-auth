@@ -1,7 +1,7 @@
 import { dbConnect } from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import { signupSchema } from "@/schemas/signupSchema";
 import { z } from "zod"
 
