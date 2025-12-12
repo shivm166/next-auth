@@ -6,7 +6,6 @@ import { LogOut, User } from "lucide-react";
 export default function HomePage() {
   const { data: session, status } = useSession();
 
-  // Show loading state while checking session
   if (status === "loading") {
     return (
       <div className="min-h-screen bg-gray-50 font-sans">
@@ -33,16 +32,16 @@ export default function HomePage() {
             <div className="flex items-center gap-4 text-black">
               {status === "unauthenticated" ? (
                 <>
-                  <Link href="/login" className="text-sm font-medium hover:text-blue-600 transition-colors hidden sm:inline">
+                  <Link href="/login" className="text-sm font-medium hover:text-blue-600 transition-colors ">
                     Log in
                   </Link>
-                  <Link href="/signup" className="text-sm font-medium hover:text-blue-600 transition-colors hidden sm:inline">
+                  <Link href="/signup" className="text-sm font-medium hover:text-blue-600 transition-colors ">
                     Sign up
                   </Link>
                 </>
               ) : (
                 <>
-                  <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
+                  <div className="sm:flex items-center gap-2 text-sm text-gray-600">
                     <User size={16} />
                     <span>{session?.user?.email}</span>
                   </div>
