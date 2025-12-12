@@ -19,18 +19,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex items-center gap-4">
-              {isLoggedIn ? (
-                <>
-                
-                  <button 
-                    onClick={() => signOut({ callbackUrl: "/login" })}
-                    className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-red-600 transition-colors"
-                  >
-                    <LogOut size={16} />
-                    <span>Sign Out</span>
-                  </button>
-                </>
-              ) : (
+              {! isLoggedIn ? (
                 <>
                   <Link href="/login" className="hidden sm:block text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
                     Log in
@@ -39,6 +28,18 @@ export default function HomePage() {
                       Sign up
                   </Link>
                 </>
+                
+              ) : (
+
+                <>
+                  <button 
+                    onClick={() => signOut({ callbackUrl: "/login" })}
+                    className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-red-600 transition-colors"
+                  >
+                    <LogOut size={16} />
+                    <span>Sign Out</span>
+                  </button>
+                </> 
               )}
             </div>
           </div>
