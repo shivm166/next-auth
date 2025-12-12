@@ -35,7 +35,6 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="w-full max-w-[400px]">
         
-        {/* Top Tab Switcher - Sign up Active */}
         <div className="flex w-full mb-10 border-b border-gray-100">
           <Link href="/login" className="flex-1 flex justify-center pb-3 border-b-2 border-transparent cursor-pointer hover:text-gray-600">
             <span className="text-lg font-bold text-gray-300">Log in</span>
@@ -85,7 +84,6 @@ export default function SignupPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-           {/* Apple Button */}
            <Button variant="outline" type="button">
              <svg className="w-5 h-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.45-1.62 3.57-1.62 1.57.07 2.8.74 3.78 1.95-3.35 1.76-2.79 6.75 1.25 8.5-.68 1.7-1.55 3.32-3.68 3.4zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.17 2.37-2.18 4.23-3.74 4.25z"/>
@@ -93,7 +91,6 @@ export default function SignupPage() {
              Sign up with Apple
            </Button>
 
-           {/* Google Button with Colorful Icon */}
            <Button variant="outline" type="button">
              <svg className="w-5 h-5 mr-1" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
