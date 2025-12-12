@@ -21,11 +21,7 @@ export default function HomePage() {
             <div className="flex items-center gap-4">
               {isLoggedIn ? (
                 <>
-                  <Link href="/dashboard">
-                    <Button variant="outline" className="!w-auto px-6 py-2 h-10 text-sm">
-                      Dashboard
-                    </Button>
-                  </Link>
+                
                   <button 
                     onClick={() => signOut({ callbackUrl: "/login" })}
                     className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-red-600 transition-colors"
