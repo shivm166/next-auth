@@ -18,16 +18,14 @@ export async function POST(req: NextRequest){
             const errors = result.error.flatten()
             console.log(errors)
             
-            // FIX: Convert the error object into a single string.
-            // Previously, passing the 'errors' object directly caused the frontend to crash
-            // because toast.error() expects a string, not an object.
             const errorMessage = Object.values(errors.fieldErrors)
                 .flat()
                 .join(", ");
+            // FIX END
 
             return NextResponse.json({
                 success: false,
-                message: errorMessage
+                message: errorMessage // Send the string, not the object
             }, {status: 400})
         }
         console.log(result)

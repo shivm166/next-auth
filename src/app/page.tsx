@@ -1,51 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useSession, getSession, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { LogOut } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 
 export default function HomePage() {
   const { data: session, status } = useSession();
-  const [verified, setVerified] = useState(null);
 
-  const hasUser = (s) => !!(s?.user?.email || s?.user?.id || s?.user?.name);
-
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      if (status === "loading") {
-        if (mounted) setVerified(null);
-        return;
-      }
-      if (status !== "authenticated") {
-        if (mounted) setVerified(false);
-        return;
-      }
-      if (hasUser(session)) {
-        if (mounted) setVerified(true);
-        return;
-      }
-      try {
-        const s = await getSession();
-        if (mounted) setVerified(hasUser(s));
-      } catch {
-        if (mounted) setVerified(false);
-      }
-    })();
-    return () => (mounted = false);
-  }, [status, session]);
-
-  if (verified === null) {
+  // Show loading state while checking session
+  if (status === "loading") {
     return (
-      <div className="min-h-screen bg-gray-300 font-sans">
+      <div className="min-h-screen bg-gray-50 font-sans">
         <nav className="fixed top-0 w-full bg-white/90 backdrop-blur border-b z-50">
           <div className="max-w-5xl mx-auto px-4">
             <div className="flex items-center justify-between h-16">
-              <div className="text-lg font-semibold">Auth Application</div>
-              <div className="h-8" />
+              <div className="text-lg font-semibold text-gray-900">Auth Application</div>
             </div>
           </div>
         </nav>
+        <div className="flex items-center justify-center h-screen pt-16">
+            <div className="animate-pulse text-gray-500">Loading...</div>
+        </div>
       </div>
     );
   }
@@ -56,23 +30,36 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="text-lg font-semibold text-black">Auth Application</div>
-            <div className="flex items-center gap-3 text-black">
-              {!verified ? (
+            <div className="flex items-center gap-4 text-black">
+              {status === "unauthenticated" ? (
                 <>
-                  <Link href="/login" className="text-sm hidden sm:inline">Log in</Link>
-                  <Link href="/signup" className="text-sm hidden sm:inline">Sign up</Link>
-                  <Link href="/login" className="inline sm:hidden text-sm">Get started</Link>
+                  <Link href="/login" className="text-sm font-medium hover:text-blue-600 transition-colors hidden sm:inline">
+                    Log in
+                  </Link>
+                  <Link href="/signup" className="text-sm font-medium hover:text-blue-600 transition-colors hidden sm:inline">
+                    Sign up
+                  </Link>
                 </>
               ) : (
-                <button onClick={() => signOut({ callbackUrl: "/login" })} className="flex items-center gap-2 text-sm">
-                  <LogOut size={16} />
-                  <span>Sign Out</span>
-                </button>
+                <>
+                  <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600">
+                    <User size={16} />
+                    <span>{session?.user?.email}</span>
+                  </div>
+                  <button 
+                    onClick={() => signOut({ callbackUrl: "/login" })} 
+                    className="flex items-center gap-2 text-sm font-medium text-red-600 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
+                  >
+                    <LogOut size={16} />
+                    <span>Sign Out</span>
+                  </button>
+                </>
               )}
             </div>
           </div>
         </div>
       </nav>
+
     </div>
   );
 }
