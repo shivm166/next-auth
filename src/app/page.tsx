@@ -3,10 +3,15 @@ import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { Building2, ShieldCheck, Users, ArrowRight, LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const { data: session, status } = useSession();
-  const isLoggedIn = status === "authenticated";
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(status === "authenticated");
+  }, [status]);
 
   return (
     <div className="min-h-screen bg-white font-sans">
