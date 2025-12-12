@@ -13,7 +13,6 @@ export async function dbConnect() {
     }
 
     try {
-        // Ensure env variable exists
         if (!process.env.MONGODB_URI) {
             throw new Error("Please define the MONGODB_URI environment variable inside .env");
         }
@@ -25,6 +24,5 @@ export async function dbConnect() {
         console.log("DB Connected successfully")
     } catch (error) {
         console.error("Database connection failed:", error)
-        // Do not use process.exit(1) in Next.js dev mode as it kills the server
     }
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { ChevronLeft } from 'lucide-react'; // Assuming you have lucide-react, or use an svg
+import { ChevronLeft } from 'lucide-react'; 
 
 interface AuthWrapperProps {
   children: React.ReactNode;
   title: string;
-  subtitle?: React.ReactNode; // Changed to ReactNode to allow bold email text
+  subtitle?: React.ReactNode; 
   backButton?: boolean;
-  onBackClick?: () => void; // New prop for custom back action
+  onBackClick?: () => void;
 }
 
 const AuthWrapper: React.FC<AuthWrapperProps> = ({ 
@@ -20,7 +20,6 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="w-full max-w-[400px]">
-        {/* Back Button Logic */}
         {backButton && (
           <div className="mb-6">
             {onBackClick ? (
