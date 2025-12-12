@@ -11,17 +11,14 @@ import { Eye, EyeOff } from "lucide-react";
 export default function SignupPage() {
   const router = useRouter();
   const [data, setData] = useState({ email: "", phone_no: "", password: "" });
-  // - Add state for validation errors
   const [errors, setErrors] = useState({ email: "", phone_no: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  // New validation function
   const validate = () => {
     const newErrors = { email: "", phone_no: "", password: "" };
     let isValid = true;
 
-    // Email validation (simple check)
     if (!data.email) {
       newErrors.email = "Email is required";
       isValid = false;
@@ -30,7 +27,6 @@ export default function SignupPage() {
         isValid = false;
     }
 
-    // Phone number validation (Must be 10 digits)
     if (!data.phone_no) {
       newErrors.phone_no = "Phone number is required";
       isValid = false;
@@ -42,7 +38,6 @@ export default function SignupPage() {
         isValid = false;
     }
 
-    // Password validation (Must be at least 6 chars)
     if (!data.password) {
       newErrors.password = "Password is required";
       isValid = false;
@@ -57,11 +52,8 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Run client-side validation first
     if (!validate()) {
-        return; // Stop if there are errors
-    }
+        return; }
 
     setLoading(true);
 
@@ -72,7 +64,6 @@ export default function SignupPage() {
         router.push("/login");
       }
     } catch (error: any) {
-      // Handle server-side errors (e.g. user already exists)
       toast.error(error.response?.data?.message || "Signup failed");
     } finally {
       setLoading(false);
@@ -83,7 +74,6 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="w-full max-w-[400px]">
         
-        {/* Top Tab Switcher */}
         <div className="flex w-full mb-10 border-b border-gray-100">
           <Link href="/login" className="flex-1 flex justify-center pb-3 border-b-2 border-transparent cursor-pointer hover:text-gray-600">
             <span className="text-lg font-bold text-gray-300">Log in</span>
@@ -99,12 +89,11 @@ export default function SignupPage() {
             type="email" 
             placeholder="Enter your email"
             value={data.email}
-            // Update error state on change so red text goes away when fixing
             onChange={(e) => {
                 setData({...data, email: e.target.value});
                 if(errors.email) setErrors({...errors, email: ""});
             }}
-            error={errors.email} // Pass error prop to Input component
+            error={errors.email} 
             required
           />
           <Input 
@@ -116,7 +105,7 @@ export default function SignupPage() {
                 setData({...data, phone_no: e.target.value});
                 if(errors.phone_no) setErrors({...errors, phone_no: ""});
             }}
-            error={errors.phone_no} // Pass error prop to Input component
+            error={errors.phone_no}
             required
           />
           <Input 
@@ -128,7 +117,7 @@ export default function SignupPage() {
                 setData({...data, password: e.target.value});
                 if(errors.password) setErrors({...errors, password: ""});
             }}
-            error={errors.password} // Pass error prop to Input component
+            error={errors.password} 
             required
             rightIcon={showPassword ? <Eye size={20}/> : <EyeOff size={20}/>}
             onRightIconClick={() => setShowPassword(!showPassword)}
@@ -145,7 +134,6 @@ export default function SignupPage() {
           </div>
         </div>
 
-        {/* Social Buttons (Unchanged) */}
         <div className="flex flex-col gap-4">
            <Button variant="outline" type="button">
              <svg className="w-5 h-5 mr-1" viewBox="0 0 24 24" fill="currentColor">
